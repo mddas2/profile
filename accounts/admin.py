@@ -11,7 +11,7 @@ class UserAdmin(BaseUserAdmin):
     fieldsets = (
         (None, {'fields': ('username', 'password')}),
         ('Personal info', {'fields': ('first_name', 'last_name','country', 'email','phone','image')}),
-        ('Permissions', {'fields': ('is_active', 'is_staff', 'is_superuser','role')}),
+        ('Permissions', {'fields': ('is_active', 'is_staff', 'is_superuser','role','tenant')}),
         # ('Social sites',{'fields':('facebook','twitter','tiktok','instagram','youtube')})
         # Add your custom fields here
     )

@@ -4,6 +4,7 @@ from django.contrib.auth.models import AbstractUser
 from .roles import roles_data,roles_data_dict
 from .import roles
 import uuid
+from tenant.models import Domain
 
 class CustomUser(AbstractUser):
     public_id = models.UUIDField(default=uuid.uuid4,editable=False,unique=True)
@@ -35,6 +36,7 @@ class CustomUser(AbstractUser):
         (facebook_provider, 'facebook'), 
     )
     provider = models.PositiveSmallIntegerField(choices=provider_CHOICES,default = system_provider)
+    tenant = models.ForeignKey(Domain, related_name="users",on_delete=models.DO_NOTHING,default=None,blank=True, null=True)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username']
