@@ -33,7 +33,7 @@ ALLOWED_HOSTS = [host for host in os.getenv('ALLOWED_HOSTS').split(',') if host 
 
 # Application definition
 
-INSTALLED_APPS = [
+SHARED_APPS = [
     # 'daphne',
     'admin_interface',
     'colorfield',
@@ -49,14 +49,15 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     'django_filters',
     'accounts',
-    'management',
-    'experience',
-    'employer',
-    'company',
-    'report',
-    'blogs',
-    'projects',
+    'django_tenants',
+    'tenant'
 ]
+
+
+TENANT_APPS = ["management","experience","employer","company","report","blogs","projects"]
+
+INSTALLED_APPS = SHARED_APPS + [app for app in TENANT_APPS if app not in SHARED_APPS]
+
 
 # ASGI_APPLICATION = 'config.asgi.application'
 AUTH_USER_MODEL = 'accounts.CustomUser'
@@ -70,6 +71,9 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    
+    'tenant.tenant_middleware_tenant_djanago_main.TenantMainMiddleware',
+
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
@@ -108,10 +112,21 @@ WSGI_APPLICATION = 'config.wsgi.application'
 #     }
 # }
 
+DATABASE_ROUTERS = (
+    'django_tenants.routers.TenantSyncRouter',
+)
+
+TENANT_MODEL = "tenant.Domain" # app.Model
+TENANT_DOMAIN_MODEL = "tenant.DomainTenantAwareModel" # app.Model
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / "db.sqlite3",  # Use the default SQLite database file
+        'ENGINE': 'django_tenants.postgresql_backend',
+        'NAME': 'profile',
+        'USER': 'postgres',
+        'PASSWORD': 'md',
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
 
