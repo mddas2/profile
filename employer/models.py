@@ -10,6 +10,13 @@ class Employer(models.Model):
     expected_salary = models.PositiveIntegerField()
     profession_category = models.ForeignKey(ProfessionCategory,related_name = 'employer',on_delete = models.PROTECT)
     skills = models.ManyToManyField(Skills,through="EmployerHaveSkills",related_name='employers')
+    facebook = models.URLField(max_length = 300,null = True,blank = True)
+    twitter = models.URLField(max_length = 300,null = True,blank = True)
+    github = models.URLField(max_length = 300,null = True,blank = True)
+    website = models.URLField(max_length = 300,null = True,blank = True)
+    instagram = models.URLField(max_length = 300,null = True,blank = True)
+
+
 
     def __str__(self) -> str:
         return self.user.username
