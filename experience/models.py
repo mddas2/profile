@@ -1,0 +1,47 @@
+from django.db import models
+import uuid
+from django.utils.text import slugify
+from company.models import Company
+from accounts.models import CustomUser
+
+# Create your models here.
+class ProfessionCategory(models.Model):
+    name = models.CharField(max_length = 250,unique = True)
+    image = models.ImageField(upload_to='profession/category/images')
+    slug = models.CharField(max_length = 250,unique = True)
+
+    def __str__(self):
+        return self.name
+    
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.type)
+        super().save(*args, **kwargs)
+
+class Skills(models.Model):
+    name = models.CharField(max_length = 150)
+    category = models.ForeignKey(ProfessionCategory,on_delete = models.CASCADE)
+    image = models.ImageField(upload_to='profession/skills/images')
+
+    def __str__(self) -> str:
+        return self.name
+    
+class Experience(models.Model):
+    public_id = models.UUIDField(default=uuid.uuid4,editable=False,unique=True)
+    title = models.CharField(max_length = 250)
+    position = models.CharField(max_length = 200)
+    level = models.CharField(max_length = 50, choices = (('intern','Intern'),('junior','Junior'),('mid','Mid'),('senior','Senior'),('','')),default = '',null = True)
+    description = models.TextField()
+    user = models.ForeignKey(CustomUser,on_delete = models.CASCADE)
+    category = models.ForeignKey(ProfessionCategory,on_delete = models.PROTECT)
+    company =  models.ForeignKey(Company,on_delete = models.CASCADE)
+    is_active = models.BooleanField(default = True)
+    is_verified = models.BooleanField(default = False)
+    from_date = models.DateField(null = True)
+    to_date = models.DateField(null = True)
+    created_date = models.DateTimeField(auto_now_add=True)
+    updated_date = models.DateTimeField(auto_now=True)
+    user = models.ForeignKey(CustomUser,related_name = 'experiences',on_delete = models.CASCADE)
+
+    def __str__(self) -> str:
+        return str(self.company.company_name)+"-"+str(self.title)
