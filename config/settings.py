@@ -35,7 +35,7 @@ ALLOWED_HOSTS = [host for host in os.getenv('ALLOWED_HOSTS').split(',') if host 
 
 INSTALLED_APPS = [
     # 'daphne',
-    # 'admin_interface',
+    'admin_interface',
     'colorfield',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -53,7 +53,9 @@ INSTALLED_APPS = [
     'experience',
     'employer',
     'company',
-    'report'
+    'report',
+    'blogs',
+    'projects',
 ]
 
 # ASGI_APPLICATION = 'config.asgi.application'

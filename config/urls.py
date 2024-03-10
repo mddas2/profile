@@ -29,9 +29,9 @@ from django.conf.urls.static import static
 
 schema_view = get_schema_view(
    openapi.Info(
-      title="PACIFIC-JOB-HUNT",
+      title="PROFILE",
       default_version='v1',
-      description="PACIFIC-JOB-HUNT",
+      description="PROFILE",
       terms_of_service="https://www.google.com/policies/terms/",
       contact=openapi.Contact(email="manojdas.py@gmail.com"),
       license=openapi.License(name="No License"),
@@ -44,9 +44,11 @@ schema_view = get_schema_view(
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/',include('accounts.urls')),
-    path('job/',include('experience.urls')),
+    path('company-experience/',include('experience.urls')),
     path('company/',include('company.urls')),
     path('employers/',include('employer.urls')),
+    path('blogs/',include('blogs.urls')),
+    path('projects/',include('projects.urls')),
     path('accounts/',include('accounts.urls')),
    # path('swagger<format>/', schema_view.without_ui(cache_timeout=0), name='schema-json'),
     path('', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
