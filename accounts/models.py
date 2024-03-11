@@ -36,7 +36,7 @@ class CustomUser(AbstractUser):
         (facebook_provider, 'facebook'), 
     )
     provider = models.PositiveSmallIntegerField(choices=provider_CHOICES,default = system_provider)
-    tenant = models.ForeignKey(Domain, related_name="users",on_delete=models.DO_NOTHING,default=None,blank=True, null=True)
+    # tenant = models.ForeignKey(Domain, related_name="users",on_delete=models.DO_NOTHING,default=None,blank=True, null=True)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username']
