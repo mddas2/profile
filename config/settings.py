@@ -103,16 +103,16 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': os.getenv('DATABASE_ENGINE'),
-#         'NAME': os.getenv('DATABASES_NAME'),
-#         'USER': os.getenv('DATABASE_USER'),
-#         'PASSWORD': os.getenv('DATABASE_PASSWORD'),
-#         'HOST': os.getenv('DATABASE_HOST'),
-#         'PORT': os.getenv('DATABASE_PORT'),
-#     }
-# }
+DATABASES = {
+    'default': {
+        'ENGINE': os.getenv('DATABASE_ENGINE'),
+        'NAME': os.getenv('DATABASES_NAME'),
+        'USER': os.getenv('DATABASE_USER'),
+        'PASSWORD': os.getenv('DATABASE_PASSWORD'),
+        'HOST': os.getenv('DATABASE_HOST'),
+        'PORT': os.getenv('DATABASE_PORT'),
+    }
+}
 
 DATABASE_ROUTERS = (
     'django_tenants.routers.TenantSyncRouter',
@@ -120,17 +120,6 @@ DATABASE_ROUTERS = (
 
 TENANT_MODEL = "tenant.Domain" # app.Model
 TENANT_DOMAIN_MODEL = "tenant.DomainTenantAwareModel" # app.Model
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django_tenants.postgresql_backend',
-        'NAME': 'profile',
-        'USER': 'postgres',
-        'PASSWORD': 'md',
-        'HOST': 'localhost',
-        'PORT': '5432',
-    }
-}
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators

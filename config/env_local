@@ -8,8 +8,8 @@ CORS_ORIGIN_WHITELIST = "http://192.168.1.8:8080,http://192.168.1.8:4200,http://
 CSRF_TRUSTED_ORIGINS = "http://127.0.0.1,http://192.168.1.10,"
 
 #Database
-DATABASE_ENGINE=django.db.backends.postgresql
-DATABASES_NAME=pacific_hunts
+DATABASE_ENGINE=django_tenants.postgresql_backend
+DATABASES_NAME=profile
 DATABASE_USER=postgres
 DATABASE_PASSWORD=md
 DATABASE_HOST=localhost
